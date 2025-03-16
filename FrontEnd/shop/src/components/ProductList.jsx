@@ -18,13 +18,12 @@ const ProductList = () => {
                 setIsError(true);
             }
         };
-
         fatchProduct();
     }, [])
 
     return (
         <>
-            <div className="flex justify-center items-center min-h-screen min-w-screen">
+            <div className="flex justify-center items-center min-h-screen ">
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
                     {products.map((product) => (
                         <Card
@@ -33,6 +32,7 @@ const ProductList = () => {
                             name={product.name}
                             price={product.price}
                             quantity={product.quantity}
+                            image={product.imageData}
                         />
                     ))}
                 </div>

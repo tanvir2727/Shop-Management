@@ -26,9 +26,13 @@ public class Product {
     private String category;
     private String description;
 
-    @JsonFormat(pattern="dd/MM/yyyy")
     private Date creatDate;
     private boolean available;
     private int quantity;
+
+    private String imageName;
+    private String imageType;
+    @Lob
+    private String imageData;
 
 }

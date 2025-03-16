@@ -1,14 +1,23 @@
 import React from 'react'
 import { useNavigate } from 'react-router'
 
-const Card = ({ id, name, price, quantity }) => {
+const Card = ({ id, name, price, quantity, image }) => {
 
     const navigate = useNavigate();
+
+
 
     return (
         <div className="max-w-xs bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow"
             // eslint-disable-next-line no-undef
             onClick={() => navigate(`/product/${id}`)} >
+            <div >
+                <img
+                    src={image ? image : "https://via.placeholder.com/300"}
+                    alt={name}
+                    className="w-full h-48 object-cover"
+                />
+            </div>
             <div className="text-lg font-semibold text-gray-800 mb-4">
                 {name}
             </div>
@@ -23,6 +32,7 @@ const Card = ({ id, name, price, quantity }) => {
                     Add to Cart
                 </button>
             </div>
+
         </div>
     )
 }
