@@ -73,4 +73,14 @@ export const getProductsById = async (id) => {
       return null;
     }
   };
+
+  export const searchProducts = async (keyword) => {
+    try {
+        const response = await axios.get(`${API_URL}/product/search?keyword=${keyword}`);
+        return response.data;
+    } catch (error) {
+        console.error("Error searching products:", error);
+        return [];
+    }
+};
   
