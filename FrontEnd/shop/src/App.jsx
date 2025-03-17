@@ -4,6 +4,7 @@ import ProductList from './components/ProductList';
 import ProductDetails from './components/ProductDetails';
 import ProductForm from './components/ProductForm';
 import Layout from './components/Layout';
+import SearchResultsPage from './components/SearchResultsPage';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/add-product" element={<ProductForm />} />
         <Route path="/edit-product/:id" element={<ProductForm />} />
+        <Route path="/search-results" element={<SearchResultsPage />} />
       </Route>
     </Routes>
   );

@@ -59,7 +59,7 @@ const ProductForm = () => {
             newError.price = "Price is require and must be a positive number";
         if (!product.description.trim()) newError.description = "Description is Require";
         if (!product.brand.trim()) newError.brand = "Brand is Require"
-        if (!product.category.trim()) newError.brand = "Category is Require";
+        if (!product.category.trim()) newError.category = "Category is Require";
         if (product.quantity < 1) newError.quantity = "Quantity must be at least 1";
         if (!imageFile) newError.image = "Product image is required";
 
