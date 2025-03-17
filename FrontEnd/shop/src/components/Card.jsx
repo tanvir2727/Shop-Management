@@ -23,7 +23,6 @@ const Card = ({ id, name, price, quantity, image }) => {
         // Save the updated cart back to local storage
         localStorage.setItem("cart", JSON.stringify(cart));
 
-        alert("Product added to cart!");
     };
 
 
