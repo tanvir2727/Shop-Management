@@ -1,6 +1,7 @@
 package com.demoProject.StoreManagement.service;
 
 import com.demoProject.StoreManagement.Model.Product;
+import com.demoProject.StoreManagement.dto.ProductDto;
 import com.demoProject.StoreManagement.repository.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
@@ -18,12 +20,12 @@ public class ProductService {
     @Autowired
     private ProductRepo productRepo;
 
-    public List<Product> getAllProducts(){
-        return productRepo.findAll();
+    public List<ProductDto> getAllProducts(){
+        return productRepo.findAll().stream().map(this::convertProductToProductDto).collect(Collectors.toList());
     }
 
-    public Product getProductById(long id) {
-        return productRepo.findById(id).get();
+    public ProductDto getProductById(long id) {
+        return productRepo.findById(id).stream().map(this::convertProductToProductDto).toList().get(0);
     }
 
     public Product addProduct(Product product, MultipartFile imageFile) throws IOException {
@@ -95,5 +97,23 @@ public class ProductService {
 
     public List<Product> searchProduct(String keyword) {
         return productRepo.searchProducts(keyword);
+    }
+
+    private ProductDto convertProductToProductDto(Product product) {
+        ProductDto productDto = new ProductDto();
+        productDto.setId(product.getId());
+        productDto.setName(product.getName());
+        productDto.setDescription(product.getDescription());
+        productDto.setBrand(product.getBrand());
+        productDto.setCategory(product.getCategory());
+        productDto.setQuantity(String.valueOf(product.getQuantity()));
+//        productDto.setImageName(product.getImageName());
+//        productDto.setImageType(product.getImageType());
+        productDto.setPrice(product.getPrice().toString());
+        productDto.setImageData(product.getImageData());
+            return productDto;
+
+
+
     }
 }

@@ -30,14 +30,14 @@ public class ProductController {
     }
 
     @GetMapping("/products")
-    public ResponseEntity<List<Product>> getAllProducts(){
+    public ResponseEntity<List<ProductDto>> getAllProducts(){
         return new ResponseEntity<>(service.getAllProducts(), HttpStatus.OK);
     }
 
     @GetMapping("/products/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable long id) {
+    public ResponseEntity<ProductDto> getProductById(@PathVariable long id) {
 
-        Product product = service.getProductById(id);
+        ProductDto product = service.getProductById(id);
 
         if(product != null){
             return new ResponseEntity<>(product, HttpStatus.OK);
@@ -80,7 +80,7 @@ public class ProductController {
 
     @DeleteMapping("/product/{id}")
     public ResponseEntity<String> deleteProduct(@PathVariable long id) {
-        Product product = service.getProductById(id);
+        ProductDto product = service.getProductById(id);
         if(product != null){
             service.deleteProduct(id);
             return new ResponseEntity<>("deleted Product", HttpStatus.OK);
