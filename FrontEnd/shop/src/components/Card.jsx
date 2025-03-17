@@ -28,7 +28,7 @@ const Card = ({ id, name, price, quantity, image }) => {
                 <span className="font-medium">Quantity:</span> {quantity}
             </div>
             <div className="text-center">
-                <button className="w-full py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none">
+                <button className="w-full py-2 px-4 bg-[#F2B28C] text-white rounded-lg hover:bg-[#D2665A] focus:outline-none">
                     Add to Cart
                 </button>
             </div>

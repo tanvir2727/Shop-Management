@@ -53,7 +53,6 @@ const Header = () => {
     // };
 
     useEffect(() => {
-
         const fetchResults = async () => {
             if (input.trim().length === 0) {
                 setSearchResults([]);  // Clear search results if input is empty
@@ -122,7 +121,7 @@ const Header = () => {
 
             <div>
                 <input
-                    className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-md"
+                    className="px-4 w-80 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-md"
                     type="search"
                     placeholder="Search products..."
                     aria-label="Search"
