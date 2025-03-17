@@ -22,6 +22,7 @@ const ProductForm = () => {
     const [imagePreview, setImagePreview] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const [errors, setErrors] = useState({});
 
     useEffect(() => {
         if (!id) return;
@@ -39,9 +40,9 @@ const ProductForm = () => {
                     creatDate: data.creatDate?.split("T")[0] || "",
                 });
                 // Check if there's an imageData and set the image preview
-            if (data.imageData) {
-                setImagePreview(data.imageData);  // Set image preview from base64
-            }
+                if (data.imageData) {
+                    setImagePreview(data.imageData);  // Set image preview from base64
+                }
             })
             .catch((error) => {
                 console.error("Error fetching product:", error);
@@ -50,17 +51,36 @@ const ProductForm = () => {
     }, [id]);
 
 
+    const validate = () => {
+        let newError = {};
+
+        if (!product.name.trim()) newError.name = "Name is require";
+        if (!product.price || isNaN(product.price) || product.price <= 0)
+            newError.price = "Price is require and must be a positive number";
+        if (!product.description.trim()) newError.description = "Description is Require";
+        if (!product.brand.trim()) newError.brand = "Brand is Require"
+        if (!product.category.trim()) newError.brand = "Category is Require";
+        if (product.quantity < 1) newError.quantity = "Quantity must be at least 1";
+        if (!imageFile) newError.image = "Product image is required";
+
+        setErrors(newError);
+        return Object.keys(newError).length === 0;
+    }
+
+
+
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
         setProduct((prev) => ({
             ...prev,
-            [name]: type === "checkBox" ? checked : value
+            // [name]: type === "checkBox" ? checked : value
+            [name]: type === "checkBox" ? checked : type === "number" ? Number(value) : value
         }));
     }
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
-        setImageFile(file);
+        setImageFile(file); // Store actual file for upload
         setImagePreview(URL.createObjectURL(file));
     }
 
@@ -68,6 +88,11 @@ const ProductForm = () => {
         e.preventDefault();
         setLoading(true);
         setError("");
+
+        if (!validate()) {
+            setLoading(false);
+            return;
+        }
 
         try {
             if (id) {
@@ -96,9 +121,9 @@ const ProductForm = () => {
                                 name="name"
                                 value={product.name}
                                 onChange={handleChange}
-                                required
                                 className="w-full p-2 border rounded-md focus:ring focus:ring-blue-300"
                             />
+                            {errors.name && <p className="text-red-500">{errors.name}</p>}
                         </div>
 
                         <div>
@@ -108,9 +133,9 @@ const ProductForm = () => {
                                 name="price"
                                 value={product.price}
                                 onChange={handleChange}
-                                required
                                 className="w-full p-2 border rounded-md focus:ring focus:ring-blue-300"
                             />
+                            {errors.price && <p className="text-red-500">{errors.price}</p>}
                         </div>
 
                         <div>
@@ -121,6 +146,7 @@ const ProductForm = () => {
                                 onChange={handleChange}
                                 className="w-full p-2 border rounded-md focus:ring focus:ring-blue-300"
                             />
+                            {errors.description && <p className="text-red-500">{errors.description}</p>}
                         </div>
 
                         <div className="grid grid-cols-2 gap-4">
@@ -133,6 +159,7 @@ const ProductForm = () => {
                                     onChange={handleChange}
                                     className="w-full p-2 border rounded-md focus:ring focus:ring-blue-300"
                                 />
+                                {errors.brand && <p className="text-red-500">{errors.brand}</p>}
                             </div>
 
                             <div>
@@ -144,6 +171,7 @@ const ProductForm = () => {
                                     onChange={handleChange}
                                     className="w-full p-2 border rounded-md focus:ring focus:ring-blue-300"
                                 />
+                                {errors.category && <p className="text-red-500">{errors.category}</p>}
                             </div>
                         </div>
 
@@ -169,6 +197,7 @@ const ProductForm = () => {
                                     min="1"
                                     className="w-full p-2 border rounded-md focus:ring focus:ring-blue-300"
                                 />
+                                {errors.quantity && <p className="text-red-500">{errors.quantity}</p>}
                             </div>
 
                             <div>
@@ -191,6 +220,7 @@ const ProductForm = () => {
                                 onChange={handleImageChange}
                                 className="w-full p-2 border rounded-md focus:ring focus:ring-blue-300"
                             />
+                            {errors.image && <p className="text-red-500">{errors.image}</p>}
                         </div>
 
                         {imagePreview && (
