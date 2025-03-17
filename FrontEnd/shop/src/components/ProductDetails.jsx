@@ -60,12 +60,12 @@ const ProductDetails = () => {
                     <p className="text-gray-400">Quantity: {product.quantity}</p>
                     <p className="text-gray-400">Category: {product.category}</p>
                     <p className="text-gray-400">Description: {product.description}</p>
-                    <p className="text-gray-400">Date: {product.creatDate}</p>
+                    <p className="text-gray-400">Date: {new Date(product.creatDate).toLocaleDateString()}</p>
 
                     {/* Buttons Section */}
-                    <div className="flex justify-between mt-4">
+                    <div className="flex gap-5 justify-between mt-4">
                         <button
-                            className="flex items-center justify-center w-1/2 py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none"
+                            className="flex items-center justify-center w-1/2 py-2 px-4 bg-[#4635B1] text-white rounded-lg hover:bg-blue-600 focus:outline-none"
                             onClick={(e) => {
                                 e.stopPropagation(); // Prevent triggering the card's click
                                 navigate(`/edit-product/${id}`); // Navigate to the update product page
@@ -74,7 +74,7 @@ const ProductDetails = () => {
                             <FaEdit className="mr-2" /> Update
                         </button>
                         <button
-                            className="flex items-center justify-center w-1/2 py-2 px-4 bg-red-500 text-white rounded-lg hover:bg-red-600 focus:outline-none"
+                            className="flex items-center justify-center w-1/2 py-2 px-4 bg-[#BE3144] text-white rounded-lg hover:bg-red-600 focus:outline-none"
                             onClick={(e) => {
                                 e.stopPropagation(); // Prevent triggering the card's click
                                 handleDelete(id); // Call delete function

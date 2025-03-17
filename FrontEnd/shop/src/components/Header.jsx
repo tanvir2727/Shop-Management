@@ -77,7 +77,7 @@ const Header = () => {
 
 
     return (
-        <header className="bg-[#4F959D] text-white p-4 flex justify-between items-center">
+        <header className="bg-[#4F959D] text-white p-4 flex justify-between items-center fixed top-0 w-full z-50">
             <div className="text-xl font-bold">
                 <Link to="/" className="hover:text-gray-900">My Shop</Link>
             </div>

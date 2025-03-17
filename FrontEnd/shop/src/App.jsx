@@ -5,6 +5,7 @@ import ProductDetails from './components/ProductDetails';
 import ProductForm from './components/ProductForm';
 import Layout from './components/Layout';
 import SearchResultsPage from './components/SearchResultsPage';
+import About from './components/About';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/add-product" element={<ProductForm />} />
         <Route path="/edit-product/:id" element={<ProductForm />} />
         <Route path="/search-results" element={<SearchResultsPage />} />
+        <Route path  ="/about" element={<About />}/>
       </Route>
     </Routes>
   );

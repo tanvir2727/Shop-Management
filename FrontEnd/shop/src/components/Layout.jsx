@@ -6,16 +6,22 @@ import SideBar from './SideBar';
 
 const Layout = () => {
     return (
-        <div className="flex flex-col h-screen">
+        <div >
             {/* Header */}
-            <Header />
-            <div className="flex flex-1">
+            <div><Header /></div>
+
+            <div className="flex min-h-screen">
                 {/* Sidebar */}
-                <SideBar />
+                <div className="w-64 bg-gray-800 text-white p-4">
+                    <SideBar />
+                </div>
+
                 {/* Main content area */}
-                <main className="flex-1 p-6 bg-gray-100 text-black">
-                    <Outlet /> {/* This renders the matched route component */}
-                </main>
+                <div className="flex-1 bg-gray-100 p-6">
+                    <main className="text-black">
+                        <Outlet /> {/* This renders the matched route component */}
+                    </main>
+                </div>
             </div>
         </div>
     );

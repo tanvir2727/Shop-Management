@@ -14,7 +14,7 @@ const SideBar = () => {
     };
 
     return (
-        <div className="h-full bg-[#80CBC4] text-white w-64 flex flex-col items-start py-4">
+        <div className="h-full bg-[#80CBC4] text-white w-64 flex flex-col items-start py-4 fixed top-18 left-0">
             <div className="w-full px-4">
                 <ul className="space-y-4">
                     {/* All Products Link */}
