@@ -4,6 +4,8 @@ package com.demoProject.StoreManagement.controller;
 import com.demoProject.StoreManagement.Model.Product;
 import com.demoProject.StoreManagement.dto.ProductDto;
 import com.demoProject.StoreManagement.service.ProductService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,7 +18,7 @@ import java.util.List;
 
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("/api")
 public class ProductController {
 
@@ -25,8 +27,8 @@ public class ProductController {
     private ProductService service;
 
     @GetMapping("/")
-    public String test() {
-        return "API is working!";
+    public String test(HttpSession session) {
+        return "API is working!" + " Session ID: " + session.getId();
     }
 
     @GetMapping("/products")
@@ -45,6 +47,12 @@ public class ProductController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    //it will give me a token if I enable the spring security.
+//    @GetMapping("/csrf-token")
+//    public CsrfToken getCsrfToken(HttpServletRequest request){
+//        return (CsrfToken) request.getAttribute("_csrf");
+//    }
 
     @PostMapping(value = "/product", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> addProduct(@RequestPart Product product,
