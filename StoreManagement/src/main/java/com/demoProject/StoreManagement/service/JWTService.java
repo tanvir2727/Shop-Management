@@ -44,7 +44,8 @@ public class JWTService {
     }
 
     private Key getKey() {
-        byte[] keyBytes =Base64.getDecoder().decode(secretKey.getBytes(StandardCharsets.UTF_8));
+        byte[] keyBytes = Base64.getDecoder().decode(secretKey.getBytes(StandardCharsets.UTF_8));
+//        byte[] KeyBytes = Base64.getEncoder().encode(keyBytes);
         return Keys.hmacShaKeyFor(keyBytes);
     }
 }
