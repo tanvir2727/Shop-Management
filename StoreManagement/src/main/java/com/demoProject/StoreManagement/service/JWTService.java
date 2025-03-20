@@ -1,14 +1,16 @@
 package com.demoProject.StoreManagement.service;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
-import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
+import java.util.function.Function;
 
 @Service
 public class JWTService {
@@ -41,7 +43,7 @@ public class JWTService {
                 .compact();
     }
 
-    private Key getKey() {
+    private SecretKey getKey() {
         //Converts raw bytes into a Base64-encoded string.
 //        byte[] keyBytes = Base64.getEncoder().encode(secretKey.getBytes(StandardCharsets.UTF_8));
 
@@ -51,5 +53,35 @@ public class JWTService {
 
 //        byte[] KeyBytes = Base64.getEncoder().encode(keyBytes);
         return Keys.hmacShaKeyFor(keyBytes);
+    }
+
+    public String extrectUserName(String jwtToken) {
+        return extractClaim(jwtToken,Claims::getSubject);
+    }
+
+    private <T>T extractClaim(String jwtToken, Function<Claims,T>claimsResolver) {
+        final Claims claims = extractAllClaim(jwtToken);
+        return claimsResolver.apply(claims);
+    }
+
+    private Claims extractAllClaim(String jwtToken) {
+        return Jwts.parser()
+                .verifyWith(getKey())
+                .build()
+                .parseSignedClaims(jwtToken)
+                .getPayload();
+    }
+
+    public boolean validateToken(String token, UserDetails userDetails) {
+        final String userName = extrectUserName(token);
+        return (userName.equals(userDetails.getUsername()) && !isTokenExpired(token));
+    }
+
+    private boolean isTokenExpired(String token) {
+        return extractExpriration(token).before(new Date());
+    }
+
+    private Date extractExpriration(String token) {
+        return extractClaim(token,Claims::getExpiration);
     }
 }
