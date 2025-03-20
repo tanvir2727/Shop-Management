@@ -3,14 +3,12 @@ package com.demoProject.StoreManagement.service;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Service;
-
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
-
 
 @Service
 public class JWTService {
@@ -44,7 +42,13 @@ public class JWTService {
     }
 
     private Key getKey() {
+        //Converts raw bytes into a Base64-encoded string.
+//        byte[] keyBytes = Base64.getEncoder().encode(secretKey.getBytes(StandardCharsets.UTF_8));
+
+        //Converts a Base64-encoded string back into its original raw bytes.
         byte[] keyBytes = Base64.getDecoder().decode(secretKey.getBytes(StandardCharsets.UTF_8));
+
+
 //        byte[] KeyBytes = Base64.getEncoder().encode(keyBytes);
         return Keys.hmacShaKeyFor(keyBytes);
     }
