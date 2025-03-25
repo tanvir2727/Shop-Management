@@ -127,7 +127,7 @@ public class SecurityConfig {
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
 //        provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance()); //when qwe verify still use no op password encode password
-        provider.setPasswordEncoder(new BCryptPasswordEncoder(12));
+        provider.setPasswordEncoder(new BCryptPasswordEncoder(BCryptPasswordEncoder.BCryptVersion.$2A, 12));
         provider.setUserDetailsService(userDetailsService);
         return provider;
     }

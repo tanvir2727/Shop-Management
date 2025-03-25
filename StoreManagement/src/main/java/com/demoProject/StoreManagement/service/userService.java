@@ -9,6 +9,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import static org.apache.coyote.http11.Constants.a;
+
 @Service
 public class userService {
 
@@ -22,7 +24,7 @@ public class userService {
     private JWTService jwtService;
 
     //create bycript onbject
-    private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
+    private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(BCryptPasswordEncoder.BCryptVersion.$2A,12);
 
     public Users registerUser(Users user) {
         user.setPassword(encoder.encode(user.getPassword()));
